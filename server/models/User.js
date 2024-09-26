@@ -37,39 +37,7 @@ const UserSchema = new mongoose.Schema(
     occupation: String,
     viewedProfile: Number,
     impressions: Number,
-    bookmarks: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Post",
-      default: [],
-    },
-    widgetPreferences: {
-      type: Map,
-      of: Boolean,
-      default: {
-        Profile: true,
-        CreatePost: true,
-        RecentSocialPosts: true,
-        Sponsored: true,
-        Followers: true,
-        Following: true,
-        MyBookmarkList: true,
-        ArchivedPosts: false,
-      },
-    },
     resetToken: String,
-    resetTokenExpiration: Date,
-    blockedUsers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    sessionLogs: [
-      {
-        date: { type: Date, default: Date.now },
-        duration: { type: Number, default: 0 }, // duration in minutes
-      },
-    ],
   },
   { timestamps: true }
 );

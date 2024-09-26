@@ -67,33 +67,6 @@ export const login = async (req, res) => {
   }
 };
 
-/* LOGGING OUT */
-export const logout = async (req, res) => {
-  try {
-    const { id } = req.user; // Get user ID from JWT
-
-    const user = await User.findById(id);
-    if (!user) return res.status(400).json({ msg: "User not found." });
-
-    // Get the last session log and calculate session duration
-    const lastSession = user.sessionLogs[user.sessionLogs.length - 1];
-    const now = new Date();
-    const durationInMinutes = Math.floor(
-      (now - new Date(lastSession.date)) / 60000
-    );
-
-    // Update the session duration
-    lastSession.duration = durationInMinutes;
-    await user.save();
-
-    res
-      .status(200)
-      .json({ msg: "Logged out successfully", duration: lastSession.duration });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 /*Reset Password*/
 
 export async function sendEmailInternal(to, subject, html) {
